@@ -5,9 +5,9 @@ a{TEXT-DECORATION:none;color:#000;
 }
 #head{
 	width:100%;
-	height:80px;
+	height:50px;
 	background-color:#FFF;
-	padding:40px 60px 0px 0px ;
+	padding:15px 60px 0px 0px ;
 	}
 #list{
 	width:100%;
@@ -66,6 +66,7 @@ a:hover{
 	margin-top:4px;
 }
 .auto{
+	float:none;
 	height:182px;
 	border-radius:5px;
 	width:100%;
