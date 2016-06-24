@@ -18,6 +18,12 @@ ul{color:#FFF;
 	list-style-type:none;
 	margin:0px;
 	padding:0px 15% 0px 15%;}
+img:hover{
+	
+	opacity:0.8;}
+img:active{
+	opacity:0.4;
+	}
 li{
 	height:100%;
 	padding-top:18px;
