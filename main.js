@@ -34,14 +34,14 @@
             // Loading splash scene
             var splash = document.getElementById('splash');
             var progressBar = splash.querySelector('.progress-bar span');
-            var currentResCount = cc.loader.getResCount();
             cc.loader.onProgress = function (completedCount, totalCount, item) {
-                var percent = 100 * (completedCount - currentResCount) / (totalCount - currentResCount);
+                var percent = 100 * completedCount / totalCount;
                 if (progressBar) {
                     progressBar.style.width = percent.toFixed(2) + '%';
                 }
             };
             splash.style.display = 'block';
+            progressBar.style.width = '0%';
 
             cc.director.once(cc.Director.EVENT_AFTER_SCENE_LAUNCH, function () {
                 splash.style.display = 'none';
@@ -55,7 +55,7 @@
                 cc.view.enableRetina(true);
             }
             //cc.view.setDesignResolutionSize(settings.designWidth, settings.designHeight, cc.ResolutionPolicy.SHOW_ALL);
-        
+
             if (cc.sys.isBrowser) {
                 setLoadingDisplay();
             }
@@ -67,7 +67,12 @@
                 else if (settings.orientation === 'portrait') {
                     cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
                 }
-                cc.view.enableAutoFullScreen(cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU);
+                // qq, wechat, baidu
+                cc.view.enableAutoFullScreen(
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU &&
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_WECHAT &&
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_MOBILE_QQ
+                );
             }
 
             // init assets
@@ -94,6 +99,7 @@
                             div.style.backgroundImage = '';
                         }
                     }
+                    cc.loader.onProgress = null;
 
                     // play game
                     // cc.game.resume();
@@ -130,7 +136,8 @@
             frameRate: 60,
             jsList: jsList,
             groupList: settings.groupList,
-            collisionMatrix: settings.collisionMatrix
+            collisionMatrix: settings.collisionMatrix,
+            renderMode: 0
         };
 
         cc.game.run(option, onStart);
